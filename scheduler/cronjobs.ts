@@ -19,7 +19,7 @@ export const BreeLauncher = (): void => {
         timeout: false,
         jobs: [{
             name: "backupLauncher",
-            cron: "* * * * *",
+            cron: "30 * * * *",
             path: _path
         }]
     });
