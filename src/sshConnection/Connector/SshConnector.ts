@@ -17,7 +17,6 @@ export class SshConnector implements ISshConnector {
     constructor(readonly connectionConfig: IConnectionConfig, readonly remoteDirLocation: string, readonly localDirLocation: string) {
     }
 
-
     async checkForUpdates(): Promise<{ isUpToDate: boolean, filesInDirectories?: HashTable<string, string[]> }> {
 
         try {
@@ -43,7 +42,6 @@ export class SshConnector implements ISshConnector {
             console.error(e)
             return {isUpToDate: false};
         }
-
 
     }
 
@@ -72,7 +70,6 @@ export class SshConnector implements ISshConnector {
             return true
         }
     }
-
 
     private async listAllFiles(directory: string): Promise<IFileDetails[]> {
         const sftpClient = new sftp();
@@ -103,6 +100,24 @@ export class SshConnector implements ISshConnector {
             await sftpClient.end();
             console.info(` - ${new Date().toLocaleTimeString()} | Disconnected from server`);
         }
+    }
+
+    async testConnection() {
+        const sftpClient = new sftp();
+        try {
+            await sftpClient.connect(this.connectionConfig);
+            console.info(` - ${new Date().toLocaleTimeString()} | testConnection`);
+            const filesInfo = await sftpClient.list(this.remoteDirLocation);
+            const files = filesInfo.map(o => o.name);
+            console.log(JSON.stringify(`  -${new Date().toLocaleTimeString()} | ${JSON.stringify(files)}`))
+
+        } catch (err) {
+            console.error(err.message);
+        } finally {
+            await sftpClient.end();
+            console.info(` - ${new Date().toLocaleTimeString()} | Disconnected from server`);
+        }
+
     }
 
 

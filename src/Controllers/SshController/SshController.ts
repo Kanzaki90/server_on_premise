@@ -23,6 +23,7 @@ export class SshController {
         const REMOTE_DIR_LOCATION = process.env.REMOTE_DIR_LOCATION;
         const LOCAL_DIR_LOCATION = process.env.LOCAL_DIR_FOLDER;
         const sshConnector = new SshConnector(connectionConfig, REMOTE_DIR_LOCATION, LOCAL_DIR_LOCATION);
+
     }
 
     static async start(): Promise<void> {
@@ -40,6 +41,19 @@ export class SshController {
             await sshConnector.downloadNewFiles(checkForUpdates.filesInDirectories)
         }
 
+    }
+
+    static async testConnection(): Promise<void>{
+        const REMOTE_DIR_LOCATION = process.env.REMOTE_DIR_LOCATION;
+        const LOCAL_DIR_LOCATION = process.env.LOCAL_DIR_FOLDER;
+        const connectionConfig: IConnectionConfig = {
+            host: process.env.SSH_HOST,
+            port: process.env.SSH_PORT as unknown as number,
+            username: process.env.SSH_USERNAME,
+            password: process.env.SSH_PASS
+        }
+        const sshConnector = new SshConnector(connectionConfig, REMOTE_DIR_LOCATION, LOCAL_DIR_LOCATION);
+        const conTest = await sshConnector.testConnection();
     }
 
 }

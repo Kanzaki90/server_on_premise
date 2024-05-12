@@ -24,6 +24,8 @@ class App {
         this.express.get('/servicecheck', servicecheck);
         this.express.get('/', home);
         this.express.get('/get-test-file', SshController.getTestFile)
+        this.express.get('/test-connection', SshController.testConnection)
+
     }
 
 
