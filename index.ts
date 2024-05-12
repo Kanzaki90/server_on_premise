@@ -1,5 +1,6 @@
 import * as http from "http";
 import App from './app';
+import { BreeLauncher } from "./scheduler/cronjobs";
 
 const port = process.env.PORT || 3001;
 App.set('port', port);
@@ -14,3 +15,4 @@ server.on("listening", function (): void {
 });
 
 module .exports = App;
+BreeLauncher();

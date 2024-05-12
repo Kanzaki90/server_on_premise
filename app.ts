@@ -13,7 +13,6 @@ class App {
         this.express = express();
         this.middleware();
         this.routes();
-        // this.sshController = new SshController()
     }
 
     private middleware(): void {
