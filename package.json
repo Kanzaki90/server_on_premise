@@ -10,8 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:connection": "npx ts-node .\\__test__\\testConnection.ts",
     "build": "tsc -p .",
-    "start": "node /var/www/html//index.js",
-    "start:ts": "npx ts-node .\\index.ts",
+    "start": "node dist/index.js",
+    "start:ts": "npx ts-node index.ts",
     "dev": "nodemon",
     "debug": "ts-node .\\index.ts"
   },
