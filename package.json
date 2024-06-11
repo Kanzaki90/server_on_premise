@@ -13,7 +13,8 @@
     "start": "node dist/index.js",
     "start:ts": "npx ts-node index.ts",
     "dev": "nodemon",
-    "debug": "ts-node .\\index.ts"
+    "debug": "ts-node .\\index.ts",
+    "start:manual": "npx ts-node jobs/backupLauncher.ts"
   },
   "keywords": [],
   "author": "",
