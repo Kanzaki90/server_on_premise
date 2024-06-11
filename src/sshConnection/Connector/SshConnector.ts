@@ -26,14 +26,14 @@ export class SshConnector implements ISshConnector {
             const {remoteFiles, hashMap} = filesSorterByDirectory(remoteFilesAndDirecories, localFiles)
 
             if (remoteFiles.length === 0) {
-                console.info(` - ${new Date().toLocaleTimeString()} | No Files at Remote`);
+                console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | No Files at Remote`);
                 return {isUpToDate: true};
             }
 
             const filesToCopy = arrayDifference(remoteFiles, localFiles);
 
             if (filesToCopy.length !== 0 || localFiles.length === 0) {
-                console.info(` - ${new Date().toLocaleDateString()} | ${filesToCopy.length} New files discovered`);
+                console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | ${filesToCopy.length} New files discovered`);
                 return {isUpToDate: false, filesInDirectories: hashMap};
             }
 
@@ -66,7 +66,7 @@ export class SshConnector implements ISshConnector {
             console.error(e.message);
         } finally {
             await sftpClient.end();
-            console.info(` - ${new Date().toLocaleTimeString()} | Disconnected from server`);
+            console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | Disconnected from server`);
             return true
         }
     }
@@ -75,7 +75,7 @@ export class SshConnector implements ISshConnector {
         const sftpClient = new sftp();
         try {
             await sftpClient.connect(this.connectionConfig);
-            console.info(` - ${new Date().toLocaleTimeString()} | Connected from server`);
+            console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | Connected from server`);
 
             const files = await sftpClient.list(directory);
             const fileDetails: IFileDetails[] = [];
@@ -98,7 +98,7 @@ export class SshConnector implements ISshConnector {
             console.error(err.message);
         } finally {
             await sftpClient.end();
-            console.info(` - ${new Date().toLocaleTimeString()} | Disconnected from server`);
+            console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | Disconnected from server`);
         }
     }
 
@@ -106,7 +106,7 @@ export class SshConnector implements ISshConnector {
         const sftpClient = new sftp();
         try {
             await sftpClient.connect(this.connectionConfig);
-            console.info(` - ${new Date().toLocaleTimeString()} | testConnection`);
+            console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | testConnection`);
             const filesInfo = await sftpClient.list(this.remoteDirLocation);
             const files = filesInfo.map(o => o.name);
             console.log(JSON.stringify(`  -${new Date().toLocaleTimeString()} | ${JSON.stringify(files)}`))
@@ -115,7 +115,7 @@ export class SshConnector implements ISshConnector {
             console.error(err.message);
         } finally {
             await sftpClient.end();
-            console.info(` - ${new Date().toLocaleTimeString()} | Disconnected from server`);
+            console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | Disconnected from server`);
         }
 
     }

@@ -1,4 +1,4 @@
-import {SshConnector} from "../../sshConnection/Connector/SshConnector";
+import { SshConnector } from "../../sshConnection/Connector/SshConnector";
 import express from "express";
 import dotenv from "dotenv";
 
