@@ -54,6 +54,7 @@ export class SshConnector implements ISshConnector {
             const directoriesArray = directoriesAndFiles.getAllKeys();
             for (const directoryIndex in directoriesArray) {
                 const currentDir = directoriesArray[directoryIndex].slice(1, -1);
+                console.log(currentDir)
                 const directoryFiles = directoriesAndFiles.get(currentDir);
 
                 for (const fileIndex in directoryFiles) {
