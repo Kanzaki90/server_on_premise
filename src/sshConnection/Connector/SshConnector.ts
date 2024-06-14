@@ -50,6 +50,7 @@ export class SshConnector implements ISshConnector {
 
         try {
             const sftpConn = await sftpClient.connect(this.connectionConfig);
+            console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | SFTP Connected`);
             const directoriesArray = directoriesAndFiles.getAllKeys();
             for (const directoryIndex in directoriesArray) {
                 const currentDir = directoriesArray[directoryIndex].slice(1, -1);
