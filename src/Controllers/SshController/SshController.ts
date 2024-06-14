@@ -12,19 +12,6 @@ export type IConnectionConfig = {
 }
 
 export class SshController {
-    static async getTestFile(req: express.Request, res: express.Response) {
-        const connectionConfig: IConnectionConfig = {
-            host: process.env.SSH_HOST,
-            port: process.env.SSH_PORT as unknown as number,
-            username: process.env.SSH_USERNAME,
-            password: process.env.SSH_PASS
-        }
-
-        const REMOTE_DIR_LOCATION = process.env.REMOTE_DIR_LOCATION;
-        const LOCAL_DIR_LOCATION = process.env.LOCAL_DIR_FOLDER;
-        const sshConnector = new SshConnector(connectionConfig, REMOTE_DIR_LOCATION, LOCAL_DIR_LOCATION);
-
-    }
 
     static async start(): Promise<void> {
         const REMOTE_DIR_LOCATION = process.env.REMOTE_DIR_LOCATION;

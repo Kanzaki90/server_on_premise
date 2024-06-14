@@ -49,7 +49,7 @@ export class SshConnector implements ISshConnector {
         const sftpClient = new sftp();
 
         try {
-            await sftpClient.connect(this.connectionConfig);
+            const sftpConn = await sftpClient.connect(this.connectionConfig);
             const directoriesArray = directoriesAndFiles.getAllKeys();
             for (const directoryIndex in directoriesArray) {
                 const currentDir = directoriesArray[directoryIndex].slice(1, -1);
@@ -59,7 +59,9 @@ export class SshConnector implements ISshConnector {
                     const file = directoryFiles[fileIndex];
                     const remoteFilePath = `${currentDir}/${file}`;
                     const localFilePath = `${this.localDirLocation}/${file}`;
-                    await sftpClient.fastGet(remoteFilePath, localFilePath);
+                    const cp = await sftpClient.fastGet(remoteFilePath, localFilePath);
+                    console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | ${cp}`);
+
                 }
             }
         } catch (e) {
@@ -75,7 +77,7 @@ export class SshConnector implements ISshConnector {
         const sftpClient = new sftp();
         try {
             await sftpClient.connect(this.connectionConfig);
-            console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | Connected from server`);
+            console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | Connected to server`);
 
             const files = await sftpClient.list(directory);
             const fileDetails: IFileDetails[] = [];
