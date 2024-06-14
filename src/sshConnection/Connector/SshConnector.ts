@@ -55,8 +55,12 @@ export class SshConnector implements ISshConnector {
             for (const directoryIndex in directoriesArray) {
                 const currentDir = directoriesArray[directoryIndex].slice(1, -1);
                 console.log(currentDir)
-                const rgx = `/${x}/g`;
-                const test = str.replace(rgx, `${currentDir}`);
+
+
+                const uni = `\u{5c}`;
+                const from = `${uni}${uni}`
+                const to = `${uni}`;
+                let test = this.XtoY(currentDir, from, to);
                 console.log(test)
                 const directoryFiles = directoriesAndFiles.get(currentDir);
 
@@ -125,6 +129,11 @@ export class SshConnector implements ISshConnector {
             console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | Disconnected from server`);
         }
 
+    }
+
+    private XtoY(str: string, x: string, y: string) {
+        const rgx = `/${x}/g`;
+        return str.replace(rgx, `${y}`);
     }
 
 
