@@ -54,15 +54,13 @@ export class SshConnector implements ISshConnector {
             const directoriesArray = directoriesAndFiles.getAllKeys();
             for (const directoryIndex in directoriesArray) {
                 const currentDir = directoriesArray[directoryIndex].slice(1, -1);
-                console.log(currentDir)
-                const test = currentDir.replace(/\\/g,"");
-                console.log(test)
+                const parsedDir = currentDir.replace(/\\/g,"");
 
-                const directoryFiles = directoriesAndFiles.get(currentDir);
+                const directoryFiles = directoriesAndFiles.get(parsedDir);
 
                 for (const fileIndex in directoryFiles) {
                     const file = directoryFiles[fileIndex];
-                    const remoteFilePath = `${currentDir}/${file}`;
+                    const remoteFilePath = `${parsedDir}/${file}`;
                     const localFilePath = `${this.localDirLocation}/${file}`;
                     const cp = await sftpClient.fastGet(remoteFilePath, localFilePath);
                     console.info(` - ${new Date().toLocaleDateString()}|${new Date().toLocaleTimeString()} | ${cp}`);
